@@ -7,7 +7,7 @@ services:
       - 8080:8080
     privileged: true
     volumes:
-      - ./remove:/app
+      - ./:/app
     tty: true
     stdin_open: true
     command: /bin/sh
