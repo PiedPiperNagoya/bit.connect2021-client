@@ -4,7 +4,7 @@
 - Vue 2.0
 - Vuex
 - Vue Router
-- node-sass
+- dart-sass
 - ESLint + pretteir
 
 ## コンテナ作成の手順

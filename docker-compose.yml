@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   front:
-    build: ./docker/front
+    build: ./
     ports:
       - 8080:8080
     privileged: true
     volumes:
-      - ./src/front:/app
+      - ./src:/app
     tty: true
     stdin_open: true
     command: /bin/sh
