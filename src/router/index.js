@@ -10,6 +10,9 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      title: 'お店一覧'
+    },
   },
   {
     path: "/about",
