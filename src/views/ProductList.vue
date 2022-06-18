@@ -1,5 +1,12 @@
 <template>
   <div class="productlist">
+    <div class="floating-back-btn" >
+      <img src="../assets/icons/return_arrow_icon.svg" alt="">
+    </div>
+    <div class="floating-cart-btn" >
+      <img src="../assets/icons/white_add_cart_icon.svg" alt="">
+      <div class="alert-circle" />
+    </div>
     <div class="store-profile">
       <div class="seller-container">
       <img class="seller-image" :src="seller_image" alt="">
@@ -8,7 +15,7 @@
             {{store_name}}
           </div>
           <div class="seller-name">
-            <span class="role">{{seller_role}}</span>{{seller_name}}さん
+            <span class="role">担当</span>{{seller_name}}さん
           </div>
         </div>
       </div>
@@ -71,7 +78,6 @@ export default {
     return {
       store_image:"https://violet.tokyo/hodaka/wp-content/uploads/2017/03/o0497033011732104753.jpg",
       store_name:"デザートパラダイス",
-      seller_role:"担当",
       seller_name:"山田 太郎",
       seller_image:"https://pakutaso.cdn.rabify.me/shared/img/thumb/OK100_hitotuuenootoko20141221135054.jpg.webp?d=1420",
       store_distance:"1.0",
@@ -101,13 +107,8 @@ export default {
     }
   },
   methods: {
-    registerAcccount() {
-      console.log({
-        username: this.username,
-        password: this.password,
-        account_type: this.account_type,
-      })
-      // this.axios.post(
+    fetchProductList() {
+      // this.axios.get(
       //   '/api/',
       //   {
       //     username: this.username,
@@ -121,13 +122,6 @@ export default {
       // })
 
     },
-    confirmPassword(){
-      if (this.password === this.password_confirm){
-        this.error_password = "";
-      } else {
-        this.error_password = "パスワードが一致していません";
-      }
-    }
   }
 };
 </script>
@@ -140,6 +134,51 @@ export default {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  position: relative;
+  .floating-back-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: #FFFFFFCC;
+    width: 40px;
+    height: 40px;
+    border-radius: 99px;
+    left: 15px;
+    top: 10px;
+    z-index: 1000;
+    img{
+      width: 35px;
+      height: 35px;
+    }
+  }
+  .floating-cart-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: #FF7700;
+    width: 60px;
+    height: 60px;
+    border-radius: 99px;
+    right: 20px;
+    bottom: 15px;
+    z-index: 1000;
+    box-shadow: #00000029 0 3px 6px;
+    img{
+      width: 40px;
+      height: 40px;
+    }
+    .alert-circle{
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 99px;
+      background-color: #00CBFF;
+      top: -1px;
+      right: -1px;
+    }
+  }
   .store-profile{
     display: flex;
     flex-direction: column;
