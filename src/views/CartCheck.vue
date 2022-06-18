@@ -142,7 +142,6 @@ export default {
     justify-content: flex-start;
     align-items: center;
     width: 85%;
-    margin-top: 60px;
     .list-header{
       color: #000000;
       font-size: 19px;
@@ -152,7 +151,7 @@ export default {
       justify-content: center;
       align-items: flex-start;
       width: 100%;
-      margin: 30px 0 25px 0;
+      margin: 25px 0;
     }
     .product-card{
       display: flex;
