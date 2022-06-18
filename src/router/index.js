@@ -6,6 +6,7 @@ import Registration from "../views/Registration.vue";
 import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
+import CartCheck from "../views/CartCheck.vue";
 
 Vue.use(VueRouter);
 
@@ -65,6 +66,14 @@ const routes = [
     component: ProductDescription,
     meta: {
       title: '商品詳細'
+    },
+  },
+  {
+    path: "/cart_check",
+    name: "CartCheck",
+    component: CartCheck,
+    meta: {
+      title: '買物内容確認'
     },
   },
 ];
