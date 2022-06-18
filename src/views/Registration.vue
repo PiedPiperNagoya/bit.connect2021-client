@@ -1,20 +1,8 @@
 <template>
   <div class="registration">
-    アカウント登録
-      <div class="userinfo">
-        <div class="input-area username">
-          <input type="text" v-model="username" placeholder="ユーザー名" />
-        </div>
-        <div class="input-area password">
-          <input type="password" v-model="password" placeholder="パスワード" />
-        </div>
-        <div class="input-area password">
-          <input type="password" v-model="password_confirm" placeholder="パスワード(確認)" @change="confirmPassword()" />
-          <div class="error">
-            {{ this.error_password }}
-          </div>
-        </div>
-        <div class="input-area account-type">
+    <div class="content">
+      <div class="account-type">
+        <div>
           <input
             type="radio"
             v-model="account_type"
@@ -22,21 +10,41 @@
             value="parent"
           />
           <label for="parent">
-            親
+            パパママ
           </label>
+        </div>
+        <div>
           <input
             type="radio"
             v-model="account_type"
             id="clerk"
             value="clerk"/>
           <label for="clerk">
-            お店
+            店員さん
           </label>
         </div>
       </div>
-      <button
-        @click="registerAccount()"
-        class="submit_button">登録</button>
+      <div class="userinfo">
+        <div class="input-area username">
+          <input type="text" v-model="username" />
+          <label>ユーザー名</label>
+        </div>
+        <div class="input-area password">
+          <input type="password" v-model="password" />
+          <label>パスワード</label>
+        </div>
+        <div class="input-area password">
+          <input type="password" v-model="password_confirm" @change="confirmPassword()" />
+          <label>パスワード(確認)</label>
+        </div>
+      </div>
+      <div class="error">
+        {{ this.error_msg }}
+      </div>
+        <button
+          @click="registerAccount()"
+          class="register-button">登録</button>
+    </div>
   </div>
 </template>
 
@@ -51,35 +59,38 @@ export default {
       password:"",
       password_confirm:"",
       account_type:"parent",
-      error_password:"",
+      error_msg:"",
     }
   },
   methods: {
-    registerAcccount() {
-      console.log({
-        username: this.username,
-        password: this.password,
-        account_type: this.account_type,
-      })
-      // this.axios.post(
-      //   '/api/',
-      //   {
-      //     username: this.username,
-      //     password: this.password,
-      //     account_type: this.account_type,
-      //   },
-      // ).then((res) => {
-      //   console.log(res)
-      // }).catch((err) => {
-      //   console.log(err.detail)
-      // })
-
+    registerAccount() {
+      if ( this.username === "" || this.password === ""  || this.password_confirm === "" ){
+        this.error_msg = "ユーザー名またはパスワードを入力してください"
+      } else if (!this.confirmPassword()) {
+        this.error_msg = "パスワードが一致していません";
+      } else {
+        this.axios.post(
+          '/api/singin',
+          {
+            username: this.username,
+            password: this.password,
+            account_type: this.account_type,
+          },
+        ).then((res) => {
+          console.log(res)
+          this.error_msg = "";
+        }).catch((err) => {
+          console.log(err.detail)
+          // TODO ユーザー名が一意でない場合のメッセージ
+          this.error_msg = "アカウント作成にに失敗しました"
+        })
+      }
     },
     confirmPassword(){
       if (this.password === this.password_confirm){
-        this.error_password = "";
+        return true
       } else {
-        this.error_password = "パスワードが一致していません";
+        return false
       }
     }
   }
@@ -88,7 +99,106 @@ export default {
 
 
 <style scoped lang="scss">
-  .error {
-    color: red;
+  .nav_button {
+    display: none;
+  }
+  nav {
+    display: none;
+  }
+  .registration{
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    .content{
+      width: 80%;
+      border-radius: 6px;
+      border: solid 2px #FF7700;
+      margin: 60px auto;
+      .account-type{
+        display: flex;
+        overflow: hidden;
+        div {
+          position: relative;
+          flex: 1;
+        }
+        input[type="radio"] {
+          width: 100%;
+          height: 50px;
+          opacity: 0;
+        }
+        label{
+          position: absolute;
+          top: 0px; left: 0;
+          color: #b6b6b6;
+          width: 100%;
+          height: 50px;
+          background: #DDDDDD;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+        }
+        input:checked + label {
+          background: #FF7700;
+          font-weight: 500;
+          color: #fff;
+        }
+      }
+      .userinfo{
+        padding: 15px;
+        .input-area{
+          margin: 10px;
+          position: relative; 
+          input {
+            border: solid 1.5px #FF7700;
+            border-radius: 1rem;
+            background: none;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+            width: 85%;
+          } 
+          label {
+            position: absolute;
+            left: 15px;
+            color: #e8e8e8;
+            pointer-events: none;
+            transform: translateY(1rem);
+            transition: 150ms cubic-bezier(0.4,0,0.2,1);
+          }
+
+          input:focus, input:valid {
+            outline: none;
+            border: 1.5px solid #FF7700;
+          }
+
+          input:focus ~ label, input:valid ~ label {
+            transform: translateY(-50%) scale(0.8);
+            background-color: #EEEEEE;
+            padding: 0 .2em;
+            color: #808080;
+            }
+        }     
+      }
+      .register-button {
+        width: 80%;
+        height: 40px;
+        margin: 30px 10%;
+        font-weight: bold;
+        color: #ffffff;
+        line-height: 40px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        background-color: #FF7700;
+      }
+    }
+    .error {
+      color: red;
+      height: 0;
+      font-size: 14px;
+      text-align: center;
+      padding: 0 10px;
+    }
   }
 </style>

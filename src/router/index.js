@@ -29,6 +29,9 @@ const routes = [
     path: "/registration",
     name: "Registration",
     component: Registration,
+    meta: {
+      title: 'アカウント登録'
+    },
   },
   {
     path: "/signin",
