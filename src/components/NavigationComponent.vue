@@ -21,8 +21,10 @@
           買物内容確認
         </li>
         <li>
-          <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
-          お子様管理
+          <router-link to="/child">
+            <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
+            お子様管理
+          </router-link>
         </li>
       </ul>
     </nav>

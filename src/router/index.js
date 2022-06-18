@@ -6,6 +6,8 @@ import Registration from "../views/Registration.vue";
 import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
+import ChildCreate from '../views/ChildCreate'
+import ChildManage from '../views/ChildManage'
 
 Vue.use(VueRouter);
 
@@ -65,6 +67,22 @@ const routes = [
     component: ProductDescription,
     meta: {
       title: '商品詳細'
+    },
+  },
+  {
+    path: "/child",
+    name: "ChildManage",
+    component: ChildManage,
+    meta: {
+      title: 'お子様情報の管理'
+    },
+  },
+  {
+    path: "/child/create",
+    name: "ChildCreate",
+    component: ChildCreate,
+    meta: {
+      title: 'お子様情報の追加'
     },
   },
 ];
