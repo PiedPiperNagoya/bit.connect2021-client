@@ -10,15 +10,21 @@
     </div>
     <nav :style="'right: ' + (open_nav ? '0px' : '-180px')">
       <ul>
-        <li @click="routePage('/')">
+        <li
+          @click="routePage('/')"
+          :style="$route.path === '/' ? 'cursor: auto' : ''">
           <img src="../assets/icons/shop_icon.svg" alt="お店一覧"/>
           お店一覧
         </li>
-        <li @click="routePage('/')">
+        <li
+          @click="routePage('/')"
+          :style="$route.path === '/' ? 'cursor: auto' : ''">
           <img src="../assets/icons/cart_icon.svg" alt="買物内容確認"/>
           買物内容確認
         </li>
-        <li @click="routePage('/child')">
+        <li
+          @click="routePage('/child')"
+          :style="$route.path === '/child' ? 'cursor: auto' : ''">
           <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
           お子様管理
         </li>
@@ -37,9 +43,11 @@
     },
     methods: {
       routePage (path) {
-        // ページ遷移と同時にナビゲーションを閉じる
-        this.open_nav = false
-        this.$router.push(path)
+        // ページ遷移と同時にナビゲーションを閉じる（現在のページとパスが一致しない場合のみ）
+        if (path !== this.$route.path) {
+          this.open_nav = false
+          this.$router.push(path)
+        }
       },
     },
     mounted() {
