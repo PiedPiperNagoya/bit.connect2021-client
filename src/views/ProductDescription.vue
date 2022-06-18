@@ -42,14 +42,14 @@ export default {
   },
   data() {
     return {
-      num_counter:0
+      num_counter:1
     }
   },
   methods: {
     counterUpdate(diff){
       this.num_counter += diff;
-      if(this.num_counter < 0){
-        this.num_counter = 0;
+      if(this.num_counter < 1){
+        this.num_counter = 1;
       }
     },
     addCart_changePage(){
