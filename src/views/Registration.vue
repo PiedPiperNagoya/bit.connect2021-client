@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import TokenIO from '../utils/TokenIO'
+
 export default {
   name: "Registration",
   components: {
@@ -66,6 +68,7 @@ export default {
         ).then((res) => {
           console.log(res)
           this.error_msg = "";
+          TokenIO.registerToken(res.data.access_token)
           this.$router.push('/registrationCompleted')
         }).catch((err) => {
           console.log(err.detail)

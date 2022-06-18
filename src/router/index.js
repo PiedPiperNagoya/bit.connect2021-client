@@ -32,7 +32,7 @@ const routes = [
     },
   },
   {
-    path: "/registration",
+    path: "/signup",
     name: "Registration",
     component: Registration,
     meta: {

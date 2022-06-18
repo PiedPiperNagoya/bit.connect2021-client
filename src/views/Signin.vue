@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import TokenIO from '../utils/TokenIO'
+
 export default {
   name: "Signin",
   components: {
@@ -45,11 +47,10 @@ export default {
             password: this.password,
           },
         ).then((res) => {
-          console.log(res)
           this.error_msg = "";
+          TokenIO.registerToken(res.data.access_token)
           this.$router.push('/')
-        }).catch((err) => {
-          console.log(err.detail)
+        }).catch(() => {
           this.error_msg = "ログインに失敗しました"
         })
       }
