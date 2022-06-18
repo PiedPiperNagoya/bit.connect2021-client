@@ -82,7 +82,7 @@ export default {
 };
 </script>
 
-<style scopled lang="scss">
+<style scoped lang="scss">
 
   .nav_button {
     display: none;

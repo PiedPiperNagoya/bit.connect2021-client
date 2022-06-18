@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import ShopList from "../views/ShopList.vue";
+import ShopDetail from "../views/ShopDetail.vue";
 import Registration from "../views/Registration.vue";
 import Signin from "../views/Signin.vue";
 import ParentHome from "../views/ParentHome.vue";
@@ -11,10 +12,18 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "ShopList",
+    component: ShopList,
     meta: {
       title: 'お店一覧'
+    },
+  },
+  {
+    path: "/shop_detail",
+    name: "ShopDetail",
+    component: ShopDetail,
+    meta: {
+      title: '商品一覧'
     },
   },
   {
@@ -30,6 +39,9 @@ const routes = [
     path: "/registration",
     name: "Registration",
     component: Registration,
+    meta: {
+      title: 'アカウント登録'
+    },
   },
   {
     path: "/signin",
