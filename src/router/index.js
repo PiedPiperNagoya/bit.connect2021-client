@@ -5,6 +5,7 @@ import ShopDetail from "../views/ShopDetail.vue";
 import Registration from "../views/Registration.vue";
 import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
+import ProductDescription from "../views/ProductDescription.vue";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,14 @@ const routes = [
     component: ProductList,
     meta: {
       title: '商品一覧'
+    },
+  },
+  {
+    path: "/product_description",
+    name: "ProductDescription",
+    component: ProductDescription,
+    meta: {
+      title: '商品詳細'
     },
   },
 ];
