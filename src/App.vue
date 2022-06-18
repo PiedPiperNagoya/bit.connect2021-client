@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <navigation-component />
+    <navigation-component
+      v-if="$route.meta.mode !== 'quest'"/>
     <main>
       <router-view />
     </main>
