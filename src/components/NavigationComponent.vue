@@ -10,21 +10,17 @@
     </div>
     <nav :style="'right: ' + (open_nav ? '0px' : '-160px')">
       <ul>
-        <li>
-          <router-link to="/">
-            <img src="../assets/icons/shop_icon.svg" alt=""/>
-            お店一覧
-          </router-link>
+        <li @click="routePage('/')">
+          <img src="../assets/icons/shop_icon.svg" alt=""/>
+          お店一覧
         </li>
-        <li>
+        <li @click="routePage('/')">
           <img src="../assets/icons/cart_icon.svg" alt="買物内容確認"/>
           買物内容確認
         </li>
-        <li>
-          <router-link to="/child">
-            <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
-            お子様管理
-          </router-link>
+        <li @click="routePage('/child')">
+          <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
+          お子様管理
         </li>
       </ul>
     </nav>
@@ -38,6 +34,13 @@
       return {
         open_nav: false,
       }
+    },
+    methods: {
+      routePage (path) {
+        // ページ遷移と同時にナビゲーションを閉じる
+        this.open_nav = false
+        this.$router.push(path)
+      },
     },
     mounted() {
     },
@@ -66,6 +69,7 @@
       z-index: 205;
       top: 5px;
       right: 10px;
+      cursor: pointer;
       span {
         display: block;
         width: 6px;
@@ -91,21 +95,23 @@
       right: 0;
       top: 0;
       display: block;
-      width: 160px;
+      width: 200px;
       height: 100vh;
       -webkit-transition: all 0.3s ease;
       -moz-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
       transition: all  0.3s ease;
-      background-color: #EEEEEE;
+      background-color: #EEEEEEAA;
       ul {
         margin-top: 80px;
         li {
+          list-style: none;
           margin: 25px 0;
           height: 30px;
           line-height: 30px;
           font-size: 16px;
           font-weight: bold;
+          cursor: pointer;
           img {
             height: 30px;
             vertical-align: top;
