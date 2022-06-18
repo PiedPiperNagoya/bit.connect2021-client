@@ -9,6 +9,7 @@ import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
 import ChildCreate from "../views/ChildCreate";
 import ChildManage from "../views/ChildManage";
+import ShoppingList from '../views/child/ShoppingList'
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,14 @@ const routes = [
     component: ChildCreate,
     meta: {
       title: "お子様情報の追加",
+    },
+  },
+  {
+    path: "/quest",
+    name: "ShoppingList",
+    component: ShoppingList,
+    meta: {
+      mode: "quest",
     },
   },
 ];
