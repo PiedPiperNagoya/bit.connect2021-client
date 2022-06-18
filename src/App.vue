@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <navigation-component />
-    <router-view />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -19,5 +21,8 @@
   }
   body, html {
     background-color: #EEEEEE;
+  }
+  main {
+    margin-top: 60px;
   }
 </style>
