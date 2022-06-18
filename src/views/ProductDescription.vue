@@ -1,18 +1,18 @@
 <template>
   <div class="productdescription">
-    <div class="floating-back-btn" >
+    <div class="floating-back-btn" @click="$router.push('/product_list')">
       <img src="../assets/icons/return_arrow_icon.svg" alt="">
     </div>
-    <img class="product-image" :src="product_image" alt="">
+    <img class="product-image" :src="current_product.image" alt="">
     <div class="product-detail">
       <div class="product-name">
-        {{product_name}}
+        {{current_product.name}}
       </div>
       <div class="product-price">
-        ¥ {{product_price}} -
+        ¥ {{current_product.price}} -
       </div>
       <div class="product-description">
-        {{product_description}}
+        {{current_product.description}}
       </div>
     </div>
     <div class="product-counter">
@@ -26,7 +26,7 @@
         <img src="../assets/icons/plus_icon.svg" alt="">
       </div>
     </div>
-    <div class="add-cart-btn">
+    <div class="add-cart-btn" @click="addCart_changePage()">
       <img src="../assets/icons/white_cart_icon.svg" alt="">
       カートに追加
     </div>
@@ -34,16 +34,14 @@
 </template>
 
 <script>
+// import { create } from 'domain';
+
 export default {
   name: "Registration",
   components: {
   },
   data() {
     return {
-      product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-      product_name:"paンケーキ",
-      product_price:"1,200",
-      product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
       num_counter:0
     }
   },
@@ -54,21 +52,24 @@ export default {
         this.num_counter = 0;
       }
     },
-    fetchProductList() {
-      // this.axios.get(
-      //   '/api/',
-      //   {
-      //     username: this.username,
-      //     password: this.password,
-      //     account_type: this.account_type,
-      //   },
-      // ).then((res) => {
-      //   console.log(res)
-      // }).catch((err) => {
-      //   console.log(err.detail)
-      // })
-
+    addCart_changePage(){
+      this.$store.commit('appendCart',{
+        id:this.current_product.id,
+        image:this.current_product.image,
+        name:this.current_product.name,
+        price:this.current_product.price,
+        description:this.current_product.description,
+        store_id:this.current_product.store_id,
+        stock:this.current_product.stock,
+        num_counter:this.num_counter
+      });
+      this.$router.push('/cart_check')
     },
+  },
+  computed :{
+    current_product: function(){
+      return this.$store.state.latest_product
+    }
   }
 };
 </script>

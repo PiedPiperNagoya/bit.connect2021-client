@@ -72,6 +72,14 @@ const routes = [
     },
   },
   {
+    path: "/cart_check",
+    name: "CartCheck",
+    component: CartCheck,
+    meta: {
+      title: '買物内容確認'
+    },
+  },
+  {
     path: "/child",
     name: "ChildManage",
     component: ChildManage,
@@ -95,14 +103,6 @@ const routes = [
       mode: "quest",
     }
   },
-  {
-    path: "/cart_check",
-    name: "CartCheck",
-    component: CartCheck,
-    meta: {
-      title: '買物内容確認'
-    },
-  }
 ];
 
 const router = new VueRouter({
