@@ -42,12 +42,17 @@
     <div class="remain">
       あと<span>{{ 2 }}</span>つ
     </div>
+
+    <quest-complete-modal-component
+      v-if="false"/>
   </div>
 </template>
 
 <script>
+  import QuestCompleteModalComponent from '../../components/QuestCompleteModalComponent'
   export default {
     name: 'ShoppingList',
+    components: {QuestCompleteModalComponent},
     data () {
       return {
 
