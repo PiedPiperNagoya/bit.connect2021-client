@@ -2,8 +2,10 @@
   <div class="shop_list">
     <div class="shop"
       v-for="(shop, i) in shop_list"
-      :key="i">
-
+      :key="i"
+      @click="$router.push('/product_list/' )"
+      >
+<!-- @click="$router.push('/product_list/' + id)" -->
       <img :src="shop.image" alt="お店の写真" class="shop_img">
       <div class="name"> {{ shop.name }} </div>
       <div class="location">
@@ -72,9 +74,15 @@ export default {
     for (let i=0; i<10; i++){
       this.shop_list.push(this.shop_info);
     }
-
-
     // TODO お店情報一覧取得
+    // this.axios.get(
+    //   `/api/store/list`,
+    // ).then((res) => {
+    //   this.shop_list = res;
+    //   console.log(this.shop_list);
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
     // TODO 距離、時間所得
     this.proc()
     // this.getWalkingTime()
@@ -129,7 +137,7 @@ export default {
       }).then((param) => {
         console.log(param)
         axios.get(
-          `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?${param}`,
+          `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?${param}`
         ).then((res) => {
           console.log(res)
         }).catch((err) => {
@@ -158,7 +166,7 @@ export default {
     position: fixed;
     top: 60px;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
     overflow: scroll;
     .shop {
       width: 75%;
