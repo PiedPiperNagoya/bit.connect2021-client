@@ -1,5 +1,5 @@
 <template>
-  <div class="signin">
+  <div class="registration">
     アカウント登録
       <div class="userinfo">
         <div class="input-area username">
