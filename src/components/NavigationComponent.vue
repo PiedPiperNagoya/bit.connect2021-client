@@ -8,7 +8,7 @@
       <span :class="open_nav ? 'open_span' : ''"></span>
       <span :class="open_nav ? 'open_span' : ''"></span>
     </div>
-    <nav :style="'right: ' + (open_nav ? '0px' : '-160px')">
+    <nav :style="'right: ' + (open_nav ? '0px' : '-180px')">
       <ul>
         <li @click="routePage('/')">
           <img src="../assets/icons/shop_icon.svg" alt=""/>
@@ -95,7 +95,7 @@
       right: 0;
       top: 0;
       display: block;
-      width: 200px;
+      width: 180px;
       height: 100vh;
       -webkit-transition: all 0.3s ease;
       -moz-transition: all 0.3s ease;
@@ -106,7 +106,7 @@
         margin-top: 80px;
         li {
           list-style: none;
-          margin: 25px 0;
+          margin: 25px 0 25px 20px;
           height: 30px;
           line-height: 30px;
           font-size: 16px;
