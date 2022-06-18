@@ -30,7 +30,7 @@ const routes = [
     name: "Registration",
     component: Registration,
     meta: {
-      title: 'サイアカウント登録'
+      title: 'アカウント登録'
     },
   },
   {
