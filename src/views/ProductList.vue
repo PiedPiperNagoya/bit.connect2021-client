@@ -1,9 +1,9 @@
 <template>
   <div class="productlist">
-    <div class="floating-back-btn" >
+    <div class="floating-back-btn" @click="$router.push('/')" >
       <img src="../assets/icons/return_arrow_icon.svg" alt="">
     </div>
-    <div class="floating-cart-btn" >
+    <div class="floating-cart-btn" @click="$router.push('/cart_check')">
       <img src="../assets/icons/white_add_cart_icon.svg" alt="">
       <div class="alert-circle" />
     </div>
@@ -50,17 +50,17 @@
       <div class="list-header">
         商品一覧
       </div>
-      <div class="product-card" v-for="product_info in product_lists" :key="product_info.key">
-        <img class="product-image" :src="product_info.product_image" alt="">
+      <div class="product-card" v-for="product_info in product_lists" :key="product_info.key" @click="viewDescription(product_info)">
+        <img class="product-image" :src="product_info.image" alt="">
         <div class="product-detail">
           <div class="product-title">
-            {{product_info.product_name}}
+            {{product_info.name}}
           </div>
           <div class="product-price">
-            ¥ {{product_info.product_price}} -
+            ¥ {{product_info.price}} -
           </div>
           <div class="product-description">
-            {{product_info.product_description}}
+            {{product_info.description}}
           </div>
 
         </div>
@@ -86,41 +86,39 @@ export default {
       store_description:"鷗外記念館の中にある落ち着いた雰囲気のカフェです。 沙羅の木や三人冗語の石など鷗外ゆかりの庭園を眺めな がら、ゆっくりとお茶を楽しむことができます。 店内はベビーカーも入れるよう通路を広くしており、またお子 様用のもご用意しておりますので、お子様連れの方もお気 軽にお越しください。",
       product_lists:[
         {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
+          id:"12345",
+          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
+          name:"paンケーキ",
+          price:"1,200",
+          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
+          store_id:'67890',
+          stock:60
         },
         {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
+          id:"12346",
+          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
+          name:"paンケーキ2",
+          price:"1,200",
+          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
+          store_id:'67890',
+          stock:60
         },
         {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
+          id:"12347",
+          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
+          name:"paンケーキ3",
+          price:"1,200",
+          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
+          store_id:'67890',
+          stock:60
         }
       ]
     }
   },
   methods: {
-    fetchProductList() {
-      // this.axios.get(
-      //   '/api/',
-      //   {
-      //     username: this.username,
-      //     password: this.password,
-      //     account_type: this.account_type,
-      //   },
-      // ).then((res) => {
-      //   console.log(res)
-      // }).catch((err) => {
-      //   console.log(err.detail)
-      // })
-
+    viewDescription(target) {
+      this.$store.commit('updateLatestProduct',target);
+      this.$router.push('/product_description')
     },
   }
 };
@@ -145,7 +143,7 @@ export default {
     height: 40px;
     border-radius: 99px;
     left: 15px;
-    top: 10px;
+    top: 65px;
     z-index: 1000;
     img{
       width: 35px;
@@ -185,7 +183,6 @@ export default {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    margin-top: 60px;
     position: relative;
     .seller-container{
       display: flex;
