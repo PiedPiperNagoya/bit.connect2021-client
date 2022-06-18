@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     registerAccount() {
-      if ( this.name === "" || this.password === ""  || this.password_confirm === "" ){
+      if ( this.name === "" || this.password === ""  || this.password_confirm === "" || this.email === "" || this.tel === "" ){
         this.error_msg = "未入力の欄があります"
       } else if (!this.confirmPassword()) {
         this.error_msg = "パスワードが一致していません";
@@ -66,6 +66,7 @@ export default {
         ).then((res) => {
           console.log(res)
           this.error_msg = "";
+          this.$router.push('/registrationCompleted')
         }).catch((err) => {
           console.log(err.detail)
           // TODO ユーザー名が一意でない場合のメッセージ
