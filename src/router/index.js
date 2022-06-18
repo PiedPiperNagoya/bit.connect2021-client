@@ -4,7 +4,6 @@ import ShopList from "../views/ShopList.vue";
 import ShopDetail from "../views/ShopDetail.vue";
 import Registration from "../views/Registration.vue";
 import Signin from "../views/Signin.vue";
-import ParentHome from "../views/ParentHome.vue";
 import ProductList from "../views/ProductList.vue";
 
 Vue.use(VueRouter);
@@ -50,11 +49,6 @@ const routes = [
     meta: {
       title: 'サインイン'
     },
-  },
-  {
-    path: "/parent_home",
-    name: "ParentHome",
-    component: ParentHome,
   },
   {
     path: "/product_list",
