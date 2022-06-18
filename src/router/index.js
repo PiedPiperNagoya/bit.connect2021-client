@@ -7,6 +7,7 @@ import RegistrationCompleted from "../views/RegistrationCompleted.vue";
 import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
+import CartCheck from "../views/CartCheck.vue";
 import ChildCreate from "../views/ChildCreate";
 import ChildManage from "../views/ChildManage";
 import ShoppingList from '../views/child/ShoppingList'
@@ -92,8 +93,16 @@ const routes = [
     component: ShoppingList,
     meta: {
       mode: "quest",
-    },
+    }
   },
+  {
+    path: "/cart_check",
+    name: "CartCheck",
+    component: CartCheck,
+    meta: {
+      title: '買物内容確認'
+    },
+  }
 ];
 
 const router = new VueRouter({

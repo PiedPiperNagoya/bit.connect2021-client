@@ -145,7 +145,7 @@ export default {
     height: 40px;
     border-radius: 99px;
     left: 15px;
-    top: 10px;
+    top: 65px;
     z-index: 1000;
     img{
       width: 35px;
@@ -185,7 +185,6 @@ export default {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    margin-top: 60px;
     position: relative;
     .seller-container{
       display: flex;

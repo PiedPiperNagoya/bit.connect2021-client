@@ -92,7 +92,7 @@ export default {
     height: 40px;
     border-radius: 99px;
     left: 15px;
-    top: 10px;
+    top: 65px;
     z-index: 1000;
     img{
       width: 35px;
@@ -102,7 +102,6 @@ export default {
   .product-image{
     width: 100%;
     max-height: 300px;
-    margin-top: 60px;
   }
   .product-detail{
     width: 80%;
