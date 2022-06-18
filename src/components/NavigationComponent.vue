@@ -8,17 +8,23 @@
       <span :class="open_nav ? 'open_span' : ''"></span>
       <span :class="open_nav ? 'open_span' : ''"></span>
     </div>
-    <nav :style="'right: ' + (open_nav ? '0px' : '-160px')">
+    <nav :style="'right: ' + (open_nav ? '0px' : '-180px')">
       <ul>
-        <li @click="routePage('/')">
-          <img src="../assets/icons/shop_icon.svg" alt=""/>
+        <li
+          @click="routePage('/')"
+          :style="$route.path === '/' ? 'cursor: auto' : ''">
+          <img src="../assets/icons/shop_icon.svg" alt="お店一覧"/>
           お店一覧
         </li>
-        <li @click="routePage('/')">
+        <li
+          @click="routePage('/')"
+          :style="$route.path === '/' ? 'cursor: auto' : ''">
           <img src="../assets/icons/cart_icon.svg" alt="買物内容確認"/>
           買物内容確認
         </li>
-        <li @click="routePage('/child')">
+        <li
+          @click="routePage('/child')"
+          :style="$route.path === '/child' ? 'cursor: auto' : ''">
           <img src="../assets/icons/child_icon.svg" alt="お子様管理"/>
           お子様管理
         </li>
@@ -37,9 +43,11 @@
     },
     methods: {
       routePage (path) {
-        // ページ遷移と同時にナビゲーションを閉じる
-        this.open_nav = false
-        this.$router.push(path)
+        // ページ遷移と同時にナビゲーションを閉じる（現在のページとパスが一致しない場合のみ）
+        if (path !== this.$route.path) {
+          this.open_nav = false
+          this.$router.push(path)
+        }
       },
     },
     mounted() {
@@ -95,7 +103,7 @@
       right: 0;
       top: 0;
       display: block;
-      width: 200px;
+      width: 180px;
       height: 100vh;
       -webkit-transition: all 0.3s ease;
       -moz-transition: all 0.3s ease;
@@ -106,7 +114,7 @@
         margin-top: 80px;
         li {
           list-style: none;
-          margin: 25px 0;
+          margin: 25px 0 25px 20px;
           height: 30px;
           line-height: 30px;
           font-size: 16px;
