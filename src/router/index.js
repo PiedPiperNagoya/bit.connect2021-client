@@ -7,6 +7,7 @@ import RegistrationCompleted from "../views/RegistrationCompleted.vue";
 import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
+import CartCheck from "../views/CartCheck.vue";
 import ChildCreate from "../views/ChildCreate";
 import ChildManage from "../views/ChildManage";
 
@@ -83,6 +84,14 @@ const routes = [
     component: ChildCreate,
     meta: {
       title: "お子様情報の追加",
+    },
+  },
+  {
+    path: "/cart_check",
+    name: "CartCheck",
+    component: CartCheck,
+    meta: {
+      title: '買物内容確認'
     },
   },
 ];
