@@ -11,8 +11,10 @@
     <nav :style="'right: ' + (open_nav ? '0px' : '-160px')">
       <ul>
         <li>
-          <img src="../assets/icons/shop_icon.svg" alt=""/>
-          お店一覧
+          <router-link to="/">
+            <img src="../assets/icons/shop_icon.svg" alt=""/>
+            お店一覧
+          </router-link>
         </li>
         <li>
           <img src="../assets/icons/cart_icon.svg" alt="買物内容確認"/>
@@ -105,6 +107,10 @@
           img {
             height: 30px;
             vertical-align: top;
+          }
+          a {
+            color: #000;
+            text-decoration: none;
           }
         }
       }
