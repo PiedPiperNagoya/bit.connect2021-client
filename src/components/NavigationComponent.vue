@@ -22,8 +22,8 @@
           お店一覧
         </li>
         <li
-          @click="routePage('/')"
-          :style="$route.path === '/' ? 'cursor: auto' : ''">
+          @click="routePage('/cart_check')"
+          :style="$route.path === '/cart_check' ? 'cursor: auto' : ''">
           <img src="../assets/icons/cart_icon.svg" alt="買物内容確認"/>
           買物内容確認
         </li>

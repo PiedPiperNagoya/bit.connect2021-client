@@ -71,6 +71,14 @@ const routes = [
     },
   },
   {
+    path: "/cart_check",
+    name: "CartCheck",
+    component: CartCheck,
+    meta: {
+      title: '買物内容確認'
+    },
+  },
+  {
     path: "/child",
     name: "ChildManage",
     component: ChildManage,
@@ -84,14 +92,6 @@ const routes = [
     component: ChildCreate,
     meta: {
       title: "お子様情報の追加",
-    },
-  },
-  {
-    path: "/cart_check",
-    name: "CartCheck",
-    component: CartCheck,
-    meta: {
-      title: '買物内容確認'
     },
   },
 ];
