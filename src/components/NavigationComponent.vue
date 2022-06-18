@@ -11,7 +11,7 @@
     <nav :style="'right: ' + (open_nav ? '0px' : '-180px')">
       <ul>
         <li @click="routePage('/')">
-          <img src="../assets/icons/shop_icon.svg" alt=""/>
+          <img src="../assets/icons/shop_icon.svg" alt="お店一覧"/>
           お店一覧
         </li>
         <li @click="routePage('/')">
