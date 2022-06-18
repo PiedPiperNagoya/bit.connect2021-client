@@ -1,33 +1,18 @@
 <template>
   <div class="registration">
     <div class="content">
-      <div class="account-type">
-        <div>
-          <input
-            type="radio"
-            v-model="account_type"
-            id="parent"
-            value="parent"
-          />
-          <label for="parent">
-            パパママ
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            v-model="account_type"
-            id="clerk"
-            value="clerk"/>
-          <label for="clerk">
-            店員さん
-          </label>
-        </div>
-      </div>
       <div class="userinfo">
-        <div class="input-area username">
-          <input type="text" v-model="username" />
-          <label>ユーザー名</label>
+        <div class="input-area name">
+          <input type="text" v-model="name" />
+          <label>名前</label>
+        </div>
+        <div class="input-area email">
+          <input type="email" v-model="email" />
+          <label>メールアドレス</label>
+        </div>
+        <div class="input-area tel">
+          <input type="tel" v-model="tel" />
+          <label>電話番号</label>
         </div>
         <div class="input-area password">
           <input type="password" v-model="password" />
@@ -55,26 +40,28 @@ export default {
   },
   data() {
     return {
-      username:"",
+      name:"",
       password:"",
       password_confirm:"",
-      account_type:"parent",
+      email:"",
+      tel:"",
       error_msg:"",
     }
   },
   methods: {
     registerAccount() {
-      if ( this.username === "" || this.password === ""  || this.password_confirm === "" ){
-        this.error_msg = "ユーザー名またはパスワードを入力してください"
+      if ( this.name === "" || this.password === ""  || this.password_confirm === "" ){
+        this.error_msg = "未入力の欄があります"
       } else if (!this.confirmPassword()) {
         this.error_msg = "パスワードが一致していません";
       } else {
         this.axios.post(
-          '/api/singin',
+          '/api/parent/signup',
           {
-            username: this.username,
+            name: this.name,
+            email: this.email,
             password: this.password,
-            account_type: this.account_type,
+            tel: this.tel,
           },
         ).then((res) => {
           console.log(res)
@@ -92,7 +79,7 @@ export default {
       } else {
         return false
       }
-    }
+    },
   }
 };
 </script>
