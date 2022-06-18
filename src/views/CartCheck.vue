@@ -5,6 +5,9 @@
         商品一覧
       </div>
       <div class="product-card" v-for="product_info in product_lists" :key="product_info.key">
+        <div class="product-count">
+          {{product_info.num_counter}}
+        </div>
         <img class="product-image" :src="product_info.image" alt="">
         <div class="product-detail">
           <div class="product-title">
@@ -130,6 +133,22 @@ export default {
       align-items: center;
       width: 100%;
       margin-bottom: 15px;
+      position: relative;
+      .product-count{
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: bolder;
+        background-color: #FF7700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 99px;
+        left: -3px;
+        bottom: -3px;
+      }
       .product-image{
         width: 80px;
         height: 80px;
