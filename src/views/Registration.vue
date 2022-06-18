@@ -12,7 +12,7 @@
         </div>
         <div class="input-area tel">
           <input type="tel" v-model="tel" />
-          <label>電話番号</label>
+          <label>電話番号(任意)</label>
         </div>
         <div class="input-area password">
           <input type="password" v-model="password" />
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     registerAccount() {
-      if ( this.name === "" || this.password === ""  || this.password_confirm === "" ){
+      if ( this.name === "" || this.password === ""  || this.password_confirm === "" || this.email === "" ){
         this.error_msg = "未入力の欄があります"
       } else if (!this.confirmPassword()) {
         this.error_msg = "パスワードが一致していません";
