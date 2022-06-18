@@ -1,5 +1,10 @@
 <template>
   <header>
+    <img
+      @click="$route.path !== '/' ? $router.push('/') : ''"
+      class="logo"
+      src="../assets/icons/nedu_quest_icon.svg"
+      alt="nedu_quest">
     <h1>{{ this.$route.meta.title }}</h1>
     <div
       class="nav_button"
@@ -63,6 +68,15 @@
     left: 0;
     height: 60px;
     width: 100%;
+    .logo {
+      position: fixed;
+      z-index: 205;
+      top: 10px;
+      left: 20px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+    }
     h1 {
       height: 60px;
       line-height: 60px;
