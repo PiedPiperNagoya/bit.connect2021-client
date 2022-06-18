@@ -5,20 +5,23 @@
         商品一覧
       </div>
       <div class="product-card" v-for="product_info in product_lists" :key="product_info.key">
-        <img class="product-image" :src="product_info.product_image" alt="">
+        <div class="product-count">
+          {{product_info.num_counter}}
+        </div>
+        <img class="product-image" :src="product_info.image" alt="">
         <div class="product-detail">
           <div class="product-title">
-            {{product_info.product_name}}
+            {{product_info.name}}
           </div>
           <div class="product-price">
-            ¥ {{product_info.product_price}} -
+            ¥ {{product_info.price}} -
           </div>
           <div class="product-description">
-            {{product_info.product_description}}
+            {{product_info.description}}
           </div>
         </div>
       </div>
-      <div class="add-order-btn">
+      <div class="add-order-btn" @click="$router.push('/product_list')">
         <img src="../assets/icons/orange_plus_icon.svg" alt="">
         <span>注文を追加</span>
       </div>
@@ -79,50 +82,20 @@ export default {
           honorific:"ちゃん"
         },
       ],
-      product_lists:[
-        {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
-        },
-        {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
-        },
-        {
-          product_image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          product_name:"paンケーキ",
-          product_price:"1,200",
-          product_description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。"
-        }
-      ]
     }
   },
   methods: {
     updateErrander(target){
       this.current_errander = target;
     },
-    fetchProductList() {
-      // this.axios.get(
-      //   '/api/',
-      //   {
-      //     username: this.username,
-      //     password: this.password,
-      //     account_type: this.account_type,
-      //   },
-      // ).then((res) => {
-      //   console.log(res)
-      // }).catch((err) => {
-      //   console.log(err.detail)
-      // })
-
-    },
   },
   created(){
     this.updateErrander(this.errander_lists[0].errander_name)
+  },
+  computed :{
+    product_lists: function(){
+      return this.$store.state.cart_lists;
+    }
   }
 };
 </script>
@@ -160,6 +133,22 @@ export default {
       align-items: center;
       width: 100%;
       margin-bottom: 15px;
+      position: relative;
+      .product-count{
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: bolder;
+        background-color: #FF7700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 99px;
+        left: -3px;
+        bottom: -3px;
+      }
       .product-image{
         width: 80px;
         height: 80px;

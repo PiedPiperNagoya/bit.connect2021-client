@@ -1,33 +1,10 @@
 <template>
   <div class="signin">
     <div class="content">
-      <div class="account-type">
-        <div>
-          <input
-            type="radio"
-            v-model="account_type"
-            id="parent"
-            value="parent"
-          />
-          <label for="parent">
-            パパママ
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            v-model="account_type"
-            id="clerk"
-            value="clerk"/>
-          <label for="clerk">
-            店員さん
-          </label>
-        </div>
-      </div>
       <div class="userinfo">
-        <div class="input-area username">
-          <input type="text" v-model="username" />
-          <label>ユーザー名</label>
+        <div class="input-area email">
+          <input type="text" v-model="email" />
+          <label>メールアドレス</label>
         </div>
         <div class="input-area password">
           <input type="password" v-model="password" />
@@ -45,35 +22,35 @@
 </template>
 
 <script>
+import TokenIO from '../utils/TokenIO'
+
 export default {
   name: "Signin",
   components: {
   },
   data() {
     return {
-      username:"",
+      email:"",
       password:"",
-      account_type:"parent",
       error_msg:"",
     }
   },
   methods: {
     Signin() {
-      if ( this.username === "" || this.password === "" ){
+      if ( this.email === "" || this.password === "" ){
         this.error_msg = "ユーザー名またはパスワードを入力してください"
       } else {
         this.axios.post(
-          '/api/singin',
+          '/api/parent/login',
           {
-            username: this.username,
+            email: this.email,
             password: this.password,
-            account_type: this.account_type,
           },
         ).then((res) => {
-          console.log(res)
           this.error_msg = "";
-        }).catch((err) => {
-          console.log(err.detail)
+          TokenIO.registerToken(res.data.access_token)
+          this.$router.push('/')
+        }).catch(() => {
           this.error_msg = "ログインに失敗しました"
         })
       }

@@ -2,7 +2,8 @@
   <div class="shop_list">
     <div class="shop"
       v-for="(shop, i) in shop_list"
-      :key="i">
+      :key="i"
+      @click="$router.push('/product_list/' + shop.id)">
 
       <img :src="shop.image" alt="お店の写真" class="shop_img">
       <div class="name"> {{ shop.name }} </div>
@@ -75,8 +76,16 @@ export default {
 
 
     // TODO お店情報一覧取得
+    this.axios.get(
+        `/api/store/list`,
+      ).then((res) => {
+        this.shop_list = res
+        console.log(this.shop_list)
+      }).catch((err) => {
+        console.log(err.detail);
+      })
     // TODO 距離、時間所得
-    this.proc()
+    // this.proc()
     // this.getWalkingTime()
   },
   methods: {
