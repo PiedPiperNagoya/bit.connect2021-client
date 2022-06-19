@@ -55,7 +55,44 @@
     components: {QuestCompleteModalComponent},
     data () {
       return {
+        id: '',
+        token_name: 'child_id'
+      }
+    },
+    methods: {
+      registerToken(token) {
+        document.cookie = `${this.token_name}=${token}`
+      },
+      getToken() {
+        const cookie = document.cookie
+          .split('; ')
+          .find(row => row.startsWith(this.token_name))
+        return cookie ? cookie
+            .split('=')[1]
+          : ''
+      },
+      getQuest () {
+        // 買物リストを取得
 
+        // 買物リストの内容が全て完了している場合はモーダルを出す
+      },
+    },
+    mounted() {
+      // IDをCookieに格納 / Cookieから取得
+      if (this.$route.query.id) {
+        this.id = this.$route.query.id
+        this.registerToken(this.id)
+      } else {
+        this.id = this.getToken()
+      }
+
+      if (! this.id) {
+        // TODO: 例外処理（404とか）
+      }
+
+      // お店の買物完了時の処理
+      if (this.$route.query.shop_id) {
+        // ステータスを変更
       }
     },
   }
