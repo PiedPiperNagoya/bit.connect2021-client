@@ -2,7 +2,8 @@
   <div class="shop_list">
     <div class="shop"
       v-for="(shop, i) in shop_list"
-      :key="i">
+      :key="i"
+      @click="$router.push('/product_list/' + shop.id)">
 
       <img :src="shop.image" alt="お店の写真" class="shop_img">
       <div class="name"> {{ shop.name }} </div>
@@ -28,6 +29,7 @@
 
 <script>
 import {Loader} from 'google-maps';
+import TokenIO from '../utils/TokenIO.js'
 
 export default {
   name: "ShopList",
@@ -40,43 +42,67 @@ export default {
         longtitude: ''
       },
       shop_list:[],
+      // shop_info :{
+      //   id: 'id001',         // 店毎のID
+      //   name: '八百屋さん',        // 店名
+      //   description: '説明文', // 説明文
+      //   category: '野菜',    // 野菜とか
+      //   image: 'https://thumb.photo-ac.com/f0/f006678196677c302cb96518691fd369_w.jpeg',       // お店のサムネ
+      //   latitude:'35.71741598648972',   // 緯度
+      //   longitude: '139.76576362209076',   // 経度
+      //   owner_name: 'オーナー',  //店主の名前
+      //   owner_icon: 'https://thumb.photo-ac.com/8d/8db1e4c3c0bc1f10de7ec32216ad2309_w.jpeg',  //店主の画像
+      //   tel: '080-1234-5678',       // お店の電話番号  
+      //   distance: '-' ,
+      //   walking_time: '-',
+      // },
       shop_info :{
-        id: 'id001',         // 店毎のID
-        name: '八百屋さん',        // 店名
-        description: '説明文', // 説明文
-        category: '野菜',    // 野菜とか
-        image: 'https://thumb.photo-ac.com/f0/f006678196677c302cb96518691fd369_w.jpeg',       // お店のサムネ
+        id: '',         // 店毎のID
+        name: '',        // 店名
+        category: '',    // 野菜とか
+        image: '',       // お店のサムネ
         latitude:'35.71741598648972',   // 緯度
         longitude: '139.76576362209076',   // 経度
-        owner_name: 'オーナー',  //店主の名前
-        owner_icon: 'https://thumb.photo-ac.com/8d/8db1e4c3c0bc1f10de7ec32216ad2309_w.jpeg',  //店主の画像
-        tel: '080-1234-5678',       // お店の電話番号  
-        distance: 1.0,
-        walking_time: 15,
+        distance: '-' ,
+        walking_time: '-',
       }
-      // shop_info :{
-      //   store_id: '',   // 店毎のID
-      //   store_name: '', // 店名
-      //   category: '',   // 野菜とか
-      //   img: 'https://thumb.photo-ac.com/f0/f006678196677c302cb96518691fd369_w.jpeg',        // お店のサムネ
-      //   location:[],    // [緯度, 軽度]
-      //   owner_name: '',  //店主の名前
-      //   owner_icon: 'https://thumb.photo-ac.com/8d/8db1e4c3c0bc1f10de7ec32216ad2309_w.jpeg'   //店主の画像
-      // }
     }
   },
   created() {
   },
   mounted(){
     // TODO 以下ループ削除
-    for (let i=0; i<10; i++){
-      this.shop_list.push(this.shop_info);
-    }
+    // for (let i=0; i<5; i++){
+    //   this.shop_list.push(this.shop_info);
+    // }
 
+    // お店情報一覧取得
+    this.axios.get(
+        `/api/store/list`,
+        {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
+      ).then((res) => {
+        var shop_info = this.shop_info
+        // console.log(res.data) 
+        // console.log(res.data[0])
+        res.data.forEach((value) => {
+          console.log(value);
+          shop_info.id =value.$id.value;
+          shop_info.name = value.name.value;
+          shop_info.category = value.category.value;
+          shop_info.latitude = value.latitude.value;
+          shop_info.logitude = value.longitude.value;
+          // console.log(value.image.value);
+          // shop_info.image = this.getBase64(value.image);
 
-    // TODO お店情報一覧取得
+          console.log(shop_info)
+          this.shop_list.push(shop_info);
+          console.log('pushした', this.shop_list)
+        });
+      }).catch((err) => {
+        console.log(err);
+      })
     // TODO 距離、時間所得
-    this.proc()
+    // this.proc()
     // this.getWalkingTime()
   },
   methods: {
@@ -146,7 +172,15 @@ export default {
       const current_location = await this.getCurrentLocation()
       // TODO 店の数だけfor
       this.getDistance(current_location, this.shop_info)
-    }
+    },
+    getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+    },
     
   }
 
