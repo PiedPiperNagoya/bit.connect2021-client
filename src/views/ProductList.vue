@@ -101,7 +101,7 @@ export default {
           '/api/store/get/' + this.$route.params.id
           ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
-          this.store_image = res.data.image.value;
+          this.store_image = ConvBase64.convBase64(res.data.image.value.name, res.data.image.value.base64);
           this.store_name = res.data.name.value;
           this.seller_name = res.data.owner_name.value;
           this.seller_image = ConvBase64.convBase64(res.data.owner_icon.value.name, res.data.owner_icon.value.base64)
@@ -123,7 +123,7 @@ export default {
           for (let product in rawProductsList){
             this.product_lists.push({
               id: rawProductsList[product].$id.value,
-              image:rawProductsList[product].image.value,
+              image:ConvBase64.convBase64(rawProductsList[product].image.value.name,rawProductsList[product].image.value.base64),
               name: rawProductsList[product].name.value,
               price:rawProductsList[product].price.value,
               description:rawProductsList[product].description.value,
