@@ -36,6 +36,7 @@
 <script>
 import {Loader} from 'google-maps';
 import TokenIO from '../utils/TokenIO.js'
+import ConvBase64 from '../utils/ConvBase64.js'
 
 export default {
   name: "ShopList",
@@ -66,7 +67,7 @@ export default {
         id: '',         // 店毎のID
         name: '',        // 店名
         category: '',    // 野菜とか
-        image: 'https://thumb.photo-ac.com/f0/f006678196677c302cb96518691fd369_w.jpeg',       // お店のサムネ
+        image: '',       // お店のサムネ
         latitude:'35.71741598648972',   // 緯度
         longitude: '139.76576362209076',   // 経度
         distance: '-' ,
@@ -77,11 +78,6 @@ export default {
   created() {
   },
   mounted(){
-    // TODO 以下ループ削除
-    // for (let i=0; i<5; i++){
-    //   this.shop_list.push(this.shop_info);
-    // }
-
     // お店情報一覧取得
     this.axios.get(
         `/api/store/list`,
@@ -95,11 +91,7 @@ export default {
           shop_info.category = value.category.value;
           shop_info.latitude = value.latitude.value;
           shop_info.logitude = value.longitude.value;
-          // var extention = value.image.value.name.match(/[^.]+$/);
-          // console.log(extention)
-          // var file = `image/${extention};base64,${value.image.value.base64}`
-          // shop_info.image = this.getBase64(file)
-          // console.log(shop_info.image)
+          shop_info.image = ConvBase64.convBase64(value.image.value.name, value.image.value.base64)
           this.shop_list.push(shop_info);
         });
       }).catch((err) => {
