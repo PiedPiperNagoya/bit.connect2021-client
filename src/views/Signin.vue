@@ -14,19 +14,25 @@
       <div class="error">
         {{ this.error_msg }}
       </div>
-        <button
-          @click="Signin()"
-          class="login-button">ログイン</button>
-      </div>
+      <basic-button-component
+        content="ログイン"
+        @clicked="Signin"/>
+    </div>
+    <p class="description">
+      新規アカウント作成は
+      <router-link to="/signup">こちら</router-link>
+    </p>
   </div>
 </template>
 
 <script>
 import TokenIO from '../utils/TokenIO'
+import BasicButtonComponent from '../components/BasicButtonComponent'
 
 export default {
   name: "Signin",
   components: {
+    BasicButtonComponent
   },
   data() {
     return {
@@ -72,9 +78,7 @@ export default {
     top: 60px;
     width: 100%;
     .content{
-      width: 80%;
       border-radius: 6px;
-      border: solid 2px #FF7700;
       margin: 60px auto;
       .account-type{
         display: flex;
@@ -109,7 +113,7 @@ export default {
       .userinfo{
         padding: 15px;
         .input-area{
-          margin: 10px;
+          margin: 30px 6%;
           position: relative; 
           input {
             border: solid 1.5px #FF7700;
@@ -161,6 +165,12 @@ export default {
       font-size: 14px;
       text-align: center;
       padding: 0 10px;
+    }
+  }
+  .description {
+    text-align: center;
+    :link, :visited {
+      color: #FF7700;
     }
   }
 </style>
