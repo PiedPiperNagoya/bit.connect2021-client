@@ -119,10 +119,10 @@ export default {
           '/api/products/get/' + 2,
           {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
-          console.log(res)
+          // console.log(res)
           let rawProductsList = res.data;
           for (let product in rawProductsList){
-            console.log(product)
+            // console.log(product)
             this.product_lists.push({
               id: rawProductsList[product].$id.value,
               image:rawProductsList[product].image.value,
@@ -136,7 +136,7 @@ export default {
           console.log(this.product_lists)
         }).catch((err) => {
           console.log(err.detail)
-          console.log(this.product_lists)
+          // console.log(this.product_lists)
           // alert("商品がまだ登録されていないようです。")
         })
     },
