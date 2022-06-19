@@ -73,19 +73,27 @@ export default {
     submitErrand(){
       let postBuyList = []
       console.log(this.product_lists);
+
       for(let key in this.product_lists){
+
         console.log(String(this.product_lists[key].id))
         console.log(String(this.product_lists[key].num_counter))
+
         postBuyList.push({
           "product_id":String(this.product_lists[key].id),
           "num":String(this.product_lists[key].num_counter)
         })
       }
+
+      console.log({
+          "buy_list": postBuyList,
+          "child_id": this.child_id,
+        })
       this.axios.post(
         '/api/request/register',
         {
           "buy_list": postBuyList,
-          "child_id": this.child_id,
+          "child_id": this.child_id.value,
         },
         // {
         //   "buy_list": [
