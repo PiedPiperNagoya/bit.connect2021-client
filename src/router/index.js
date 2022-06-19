@@ -56,7 +56,7 @@ const routes = [
     },
   },
   {
-    path: "/product_list",
+    path: "/product_list/:id",
     name: "ProductList",
     component: ProductList,
     meta: {
