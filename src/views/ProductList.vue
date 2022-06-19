@@ -97,8 +97,7 @@ export default {
     fetchStoreDetail() {
       // お店の情報をfetchする
         this.axios.get(
-          '/api/store/get/' + 2
-            // this.$route.params.id
+          '/api/store/get/' + this.$route.params.id
             ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
           console.log(res)
