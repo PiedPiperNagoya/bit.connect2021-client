@@ -8,6 +8,7 @@ import Signin from "../views/Signin.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductDescription from "../views/ProductDescription.vue";
 import CartCheck from "../views/CartCheck.vue";
+import OrderCheck from "../views/OrderCheck.vue";
 import ChildCreate from "../views/ChildCreate";
 import ChildManage from "../views/ChildManage";
 import ShoppingList from '../views/child/ShoppingList'
@@ -77,6 +78,14 @@ const routes = [
     component: CartCheck,
     meta: {
       title: '買物内容確認'
+    },
+  },
+  {
+    path: "/order_check",
+    name: "OrderCheck",
+    component: OrderCheck,
+    meta: {
+      title: 'お遣いを依頼'
     },
   },
   {
