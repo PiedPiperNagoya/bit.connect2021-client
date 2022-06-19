@@ -1,7 +1,6 @@
 <template>
   <div>
     <p class="description">
-      使用されるお子様の情報を登録してください。<br>
       登録された情報はお子様を見分けるためにお名前・年齢・性別だけがお店側に提供されます。
     </p>
 
@@ -51,6 +50,7 @@
 
 <script>
   import BasicButtonComponent from '../components/BasicButtonComponent'
+  import TokenIO from '../utils/TokenIO'
   export default {
     name: 'ChildCreate',
     components: {BasicButtonComponent},
@@ -67,11 +67,31 @@
       async registerChildren () {
         // TODO: バリデーション
 
-        // TODO: 子供の情報を登録
-        console.log(this.child)
+        console.log(
+          {
+            name: this.child.name,
+            birth: this.child.birthday,
+            gender: this.child.sex,
+          })
+        console.log({headers: {Authorization: 'Bearer ' + TokenIO.getToken()}})
+
+        // 子供の情報を登録
+        const res = await this.axios.post(
+          '/api/child/signup',
+          {
+            name: this.child.name,
+            birth: this.child.birthday,
+            gender: this.child.sex,
+          },
+          {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
+        )
+
+        console.log(res)
 
         // 成功した場合は遷移
-        await this.$router.push('/child')
+        if (res.status === 200) {
+          await this.$router.push('/child')
+        }
       },
       zeroPadding (num) {
         return ('00' + num ).slice( -2 )
