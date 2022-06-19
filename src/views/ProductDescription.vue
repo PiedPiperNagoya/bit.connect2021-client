@@ -35,6 +35,7 @@
 
 <script>
 // import { create } from 'domain';
+// import ConvBase64 from '../utils/ConvBase64'
 
 export default {
   name: "Registration",
