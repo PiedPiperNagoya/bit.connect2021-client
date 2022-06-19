@@ -71,6 +71,7 @@
 
 <script>
 import TokenIO from '../utils/TokenIO'
+import ConvBase64 from '../utils/ConvBase64'
 
 export default {
   name: "Registration",
@@ -100,11 +101,10 @@ export default {
           '/api/store/get/' + this.$route.params.id
           ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
-          console.log(res)
           this.store_image = res.data.image.value;
           this.store_name = res.data.name.value;
           this.seller_name = res.data.owner_name.value;
-          this.seller_image = res.data.owner_icon.value;
+          this.seller_image = ConvBase64.convBase64(res.data.owner_icon.value.name, res.data.owner_icon.value.base64)
           this.category = res.data.category.value;
           this.store_description = res.data.description.value;
         }).catch((err) => {
@@ -119,10 +119,8 @@ export default {
           '/api/products/get/' + 2,
           {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
-          // console.log(res)
           let rawProductsList = res.data;
           for (let product in rawProductsList){
-            // console.log(product)
             this.product_lists.push({
               id: rawProductsList[product].$id.value,
               image:rawProductsList[product].image.value,
@@ -133,7 +131,6 @@ export default {
               stock:rawProductsList[product].stock.value
             })
           }
-          console.log(this.product_lists)
         }).catch((err) => {
           console.log(err.detail)
           // console.log(this.product_lists)
