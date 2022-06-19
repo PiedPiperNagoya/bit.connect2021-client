@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="add-order-btn" @click="$router.push('/product_list')">
+      <div class="add-order-btn" @click="$router.push('/')">
         <img src="../assets/icons/orange_plus_icon.svg" alt="">
         <span>注文を追加</span>
       </div>
@@ -31,16 +31,16 @@
         お遣い担当
       </div>
       <div class="errander-list">
-        <div class="errander" v-for="errander_info in errander_lists" :key="errander_info.key" @click="updateErrander(errander_info.errander_name)">
+        <div class="errander" v-for="(child, i) in children" :key="i" @click="updateErrander(child.name)">
           <div class="radio-switch">
             <div class="radio-bg" />
-            <div class="radio-active" v-if="errander_info.errander_name == current_errander" />
+            <div class="radio-active" v-if="child.name == current_name" />
           </div>
           <div class="name">
-            {{errander_info.errander_name}}
+            {{ child.name.value }}
           </div>
           <div class="honorific">
-            {{errander_info.honorific}}
+            {{ child.gender.value === 'boy' ? 'くん' : child.gender.value === 'girl' ? 'ちゃん' : 'さん' }}
           </div>
         </div>
       </div>
@@ -53,50 +53,40 @@
 </template>
 
 <script>
+import TokenIO from '../utils/TokenIO'
+
 export default {
   name: "Registration",
   components: {
   },
   data() {
     return {
-      current_errander:"",
-      errander_lists:[
-        {
-          errander_name:"たつや",
-          honorific:"くん"
-        },
-        {
-          errander_name:"りょうが",
-          honorific:"くん"
-        },
-        {
-          errander_name:"よしはる",
-          honorific:"くん"
-        },
-        {
-          errander_name:"りしゅん",
-          honorific:"くん"
-        },
-        {
-          errander_name:"さき",
-          honorific:"ちゃん"
-        },
-      ],
+      current_name:"",
+      children: {},
     }
   },
   methods: {
-    updateErrander(target){
-      this.current_errander = target;
+    updateErrander (name) {
+      this.current_name = name
     },
-  },
-  created(){
-    this.updateErrander(this.errander_lists[0].errander_name)
   },
   computed :{
     product_lists: function(){
       return this.$store.state.cart_lists;
     }
-  }
+  },
+  async mounted () {
+    // 登録されている子供の情報を取得
+    const res = await this.axios.get(
+      '/api/parent/get/children',
+      {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
+    )
+
+    if (res.status  === 200) {
+      this.children = res.data
+      this.current_name = this.children[0].name
+    }
+  },
 };
 </script>
 
