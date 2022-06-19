@@ -2,7 +2,7 @@
   <div class="cartcheck">
     <div class="list-container">
       <div class="list-header">
-        商品一覧
+        注文内容
       </div>
       <div class="product-card" v-for="product_info in product_lists" :key="product_info.key">
         <div class="product-count">
@@ -21,12 +21,12 @@
           </div>
         </div>
       </div>
-      <div class="add-order-btn" @click="$router.push('/')">
+      <!-- <div class="add-order-btn" @click="$router.push('/')">
         <img src="../assets/icons/orange_plus_icon.svg" alt="">
         <span>注文を追加</span>
-      </div>
+      </div> -->
     </div>
-    <div class="errander-list-container">
+    <!-- <div class="errander-list-container">
       <div class="errand-title">
         お遣い担当
       </div>
@@ -44,16 +44,16 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="submit-btn" @click="submitErrand()">
+    </div> -->
+    <div class="homeback-btn" @click="$router.push('/')">
       <img src="../assets/icons/white_shopping_bug.svg" alt="">
-      お遣いをお願いする
+      ホームへ戻る
     </div>
   </div>
 </template>
 
 <script>
-import TokenIO from '../utils/TokenIO'
+// import TokenIO from '../utils/TokenIO'
 
 export default {
   name: "Registration",
@@ -62,7 +62,6 @@ export default {
   data() {
     return {
       current_name:"",
-      child_id:"",
       children: {},
     }
   },
@@ -70,64 +69,13 @@ export default {
     updateErrander (name) {
       this.current_name = name
     },
-    submitErrand(){
-      let postBuyList = []
-      console.log(this.product_lists);
-      for(let key in this.product_lists){
-        console.log(String(this.product_lists[key].id))
-        console.log(String(this.product_lists[key].num_counter))
-        postBuyList.push({
-          "product_id":String(this.product_lists[key].id),
-          "num":String(this.product_lists[key].num_counter)
-        })
-      }
-      this.axios.post(
-        '/api/request/register',
-        {
-          "buy_list": postBuyList,
-          "child_id": this.child_id,
-        },
-        // {
-        //   "buy_list": [
-        //       {
-        //         "product_id":"1",
-        //         "num":"1"
-        //       }
-        //     ],
-        //   "child_id": "3b7ca9f0-32a1-45b8-8c97-84eed52f5100"
-        // },
-        {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
-      ).then((res) => {
-          console.log(res)
-          this.$router.push('/order_check')
-        }).catch((err) => {
-          console.log(err.detail)
-          // alert("お店が登録されていないようです。")
-          // this.$router.push('/')
-        })
-    }
   },
   computed :{
     product_lists: function(){
       return this.$store.state.cart_lists;
     }
   },
-  async mounted () {
-    // 登録されている子供の情報を取得
-    const res = await this.axios.get(
-      '/api/parent/get/children',
-      {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
-    )
-
-    if (res.status  === 200) {
-      console.log(res)
-      this.children = res.data
-      this.current_name = this.children[0].name
-      this.child_id = this.children[0].id
-      console.log(this.child_id)
-    }
-  },
-
+  
 };
 </script>
 
@@ -139,6 +87,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  height: 100vh;
   position: relative;
   .list-container{
     display: flex;
@@ -288,7 +237,7 @@ export default {
       }
     }
   }
-  .submit-btn{
+  .homeback-btn{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -301,7 +250,8 @@ export default {
     background-color: #FF7700;
     margin: 30px 0;
     border-radius: 99px;
-    position: relative;
+    position: absolute;
+    bottom: 70px;
     img{
       position: absolute;
       width: 30px;
