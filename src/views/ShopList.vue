@@ -1,5 +1,10 @@
 <template>
-  <div class="shop_list">
+  <div class="content">
+    <div class="floating-cart-btn" @click="$router.push('/cart_check')">
+      <img src="../assets/icons/white_add_cart_icon.svg" alt="">
+      <div class="alert-circle" />
+    </div>
+    <div class="shop_list">
     <div class="shop"
       v-for="(shop, i) in shop_list"
       :key="i"
@@ -24,6 +29,7 @@
         :alt="name"
         class="icon"> -->
       </div>
+    </div>
   </div>
 </template>
 
@@ -60,7 +66,7 @@ export default {
         id: '',         // 店毎のID
         name: '',        // 店名
         category: '',    // 野菜とか
-        image: '',       // お店のサムネ
+        image: 'https://thumb.photo-ac.com/f0/f006678196677c302cb96518691fd369_w.jpeg',       // お店のサムネ
         latitude:'35.71741598648972',   // 緯度
         longitude: '139.76576362209076',   // 経度
         distance: '-' ,
@@ -82,8 +88,6 @@ export default {
         {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}},
       ).then((res) => {
         var shop_info = this.shop_info
-        // console.log(res.data) 
-        // console.log(res.data[0])
         res.data.forEach((value) => {
           console.log(value);
           shop_info.id =value.$id.value;
@@ -91,12 +95,12 @@ export default {
           shop_info.category = value.category.value;
           shop_info.latitude = value.latitude.value;
           shop_info.logitude = value.longitude.value;
-          // console.log(value.image.value);
-          // shop_info.image = this.getBase64(value.image);
-
-          console.log(shop_info)
+          // var extention = value.image.value.name.match(/[^.]+$/);
+          // console.log(extention)
+          // var file = `image/${extention};base64,${value.image.value.base64}`
+          // shop_info.image = this.getBase64(file)
+          // console.log(shop_info.image)
           this.shop_list.push(shop_info);
-          console.log('pushした', this.shop_list)
         });
       }).catch((err) => {
         console.log(err);
@@ -188,6 +192,33 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .floating-cart-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: #FF7700;
+    width: 60px;
+    height: 60px;
+    border-radius: 99px;
+    right: 20px;
+    bottom: 15px;
+    z-index: 1000;
+    box-shadow: #00000029 0 3px 6px;
+    img{
+      width: 40px;
+      height: 40px;
+    }
+    .alert-circle{
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 99px;
+      background-color: #00CBFF;
+      top: -1px;
+      right: -1px;
+    }
+  }
   .shop_list{
     position: fixed;
     top: 60px;

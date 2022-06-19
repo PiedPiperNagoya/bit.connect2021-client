@@ -98,7 +98,7 @@ export default {
       // お店の情報をfetchする
         this.axios.get(
           '/api/store/get/' + this.$route.params.id
-            ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
+          ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
         ).then((res) => {
           console.log(res)
           this.store_image = res.data.image.value;
