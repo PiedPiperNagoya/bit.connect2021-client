@@ -70,49 +70,23 @@
 </template>
 
 <script>
+import TokenIO from '../utils/TokenIO'
+
 export default {
   name: "Registration",
   components: {
   },
   data() {
     return {
-      store_image:"https://violet.tokyo/hodaka/wp-content/uploads/2017/03/o0497033011732104753.jpg",
-      store_name:"デザートパラダイス",
-      seller_name:"山田 太郎",
-      seller_image:"https://pakutaso.cdn.rabify.me/shared/img/thumb/OK100_hitotuuenootoko20141221135054.jpg.webp?d=1420",
+      store_image:"",
+      store_name:"",
+      seller_name:"",
+      seller_image:"",
       store_distance:"1.0",
       time_requierd:"12",
-      category:"デザート",
-      store_description:"鷗外記念館の中にある落ち着いた雰囲気のカフェです。 沙羅の木や三人冗語の石など鷗外ゆかりの庭園を眺めな がら、ゆっくりとお茶を楽しむことができます。 店内はベビーカーも入れるよう通路を広くしており、またお子 様用のもご用意しておりますので、お子様連れの方もお気 軽にお越しください。",
-      product_lists:[
-        {
-          id:"12345",
-          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          name:"paンケーキ",
-          price:"1,200",
-          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
-          store_id:'67890',
-          stock:60
-        },
-        {
-          id:"12346",
-          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          name:"paンケーキ2",
-          price:"1,200",
-          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
-          store_id:'67890',
-          stock:60
-        },
-        {
-          id:"12347",
-          image:"https://media.delishkitchen.tv/article/244/kys90by72i.jpeg?version=1648629800",
-          name:"paンケーキ3",
-          price:"1,200",
-          description:"静岡県産のハチミツを贅沢に使用した特製のホット ケーキです。",
-          store_id:'67890',
-          stock:60
-        }
-      ]
+      category:"",
+      store_description:"",
+      product_lists:[]
     }
   },
   methods: {
@@ -120,6 +94,57 @@ export default {
       this.$store.commit('updateLatestProduct',target);
       this.$router.push('/product_description')
     },
+    fetchStoreDetail() {
+      // お店の情報をfetchする
+        this.axios.get(
+          '/api/store/get/' + 2
+            // this.$route.params.id
+            ,{headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
+        ).then((res) => {
+          console.log(res)
+          this.store_image = res.data.image.value;
+          this.store_name = res.data.name.value;
+          this.seller_name = res.data.owner_name.value;
+          this.seller_image = res.data.owner_icon.value;
+          this.category = res.data.category.value;
+          this.store_description = res.data.description.value;
+        }).catch((err) => {
+          console.log(err.detail)
+          // alert("お店が登録されていないようです。")
+          // this.$router.push('/')
+        })
+    },
+    fetchProductList() {
+      // 商品のリストをfetchする
+        this.axios.get(
+          '/api/products/get/' + 2,
+          {headers: {Authorization: 'Bearer ' + TokenIO.getToken()}}
+        ).then((res) => {
+          console.log(res)
+          let rawProductsList = res.data;
+          for (let product in rawProductsList){
+            console.log(product)
+            this.product_lists.push({
+              id: rawProductsList[product].$id.value,
+              image:rawProductsList[product].image.value,
+              name: rawProductsList[product].name.value,
+              price:rawProductsList[product].price.value,
+              description:rawProductsList[product].description.value,
+              store_id: rawProductsList[product].store_id.value,
+              stock:rawProductsList[product].stock.value
+            })
+          }
+          console.log(this.product_lists)
+        }).catch((err) => {
+          console.log(err.detail)
+          console.log(this.product_lists)
+          // alert("商品がまだ登録されていないようです。")
+        })
+    },
+  },
+  created(){
+    this.fetchStoreDetail()
+    this.fetchProductList() 
   }
 };
 </script>
